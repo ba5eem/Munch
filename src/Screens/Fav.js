@@ -41,7 +41,7 @@ class Fav extends Component {
                     resizeMode="cover"
                     source={{ uri: u.image_url }}
                   />
-                  <Text style={{fontSize: 30, marginTop:10, marginBottom: 10}} >{u.name}</Text>
+                  <Text style={{fontSize: 30, marginTop:10, marginBottom: 10}} >{u.name} ({u.price})</Text>
                   <View style={{flex: 1, flexDirection: 'row'}}>
                     <Icon
                       raised
