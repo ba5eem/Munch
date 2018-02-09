@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { loveFood } from '../Actions/food-actions';
-import { View, Text, Image, StyleSheet,ScrollView, TextInput, Dimensions } from 'react-native';
+import { Linking, View, Text, Image, StyleSheet,ScrollView, TextInput, Dimensions } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import { Card, ListItem, Button, Icon } from 'react-native-elements';
+import Communications from 'react-native-communications';
 
 const { height, width } = Dimensions.get('window');
 
@@ -46,14 +47,14 @@ class Fav extends Component {
                       name='ios-call'
                       type='ionicon'
                       color='#c2d94c'
-                      onPress={()=>console.log(`call ${u.phone}`)}
+                      onPress={() => Communications.phonecall(u.phone, true)}
                     />
                     <Icon
                       raised
                       name='ios-link'
                       type='ionicon'
-                      color='#ff3333'
-                      onPress={()=>console.log(`open yelp url`)}
+                      color='#ffc44c'
+                      onPress={ ()=>{Linking.openURL(u.url)}}
                     />
                     <Icon
                       raised
