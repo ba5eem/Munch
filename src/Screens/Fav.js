@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { loveFood } from '../Actions/food-actions';
-import { Linking, View, Text, Image, StyleSheet,ScrollView, TextInput, Dimensions } from 'react-native';
+import { Linking, View, Text, Image, StyleSheet,ScrollView, TextInput, Dimensions, Alert } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import { Card, ListItem, Button, Icon } from 'react-native-elements';
 import Communications from 'react-native-communications';
@@ -33,6 +33,7 @@ class Fav extends Component {
          <Card>
           {
             love.map((u, i) => {
+              let status = u.is_closed ? 'Closed Now' : 'Open Now!';
               return (
                 <View key={i} style={{justifyContent: 'center', alignItems: 'center', marginBottom: 20}} >
                   <Image
@@ -61,7 +62,14 @@ class Fav extends Component {
                       name={u.is_closed ? 'ios-close-circle' : 'ios-checkmark-circle'}
                       type='ionicon'
                       color='#59c2ff'
-                      onPress={()=>console.log(`open or closed`)}
+                      onPress={() => Alert.alert(
+                        `${u.name}`,
+                        `${status}`,
+                        [
+                          {text: 'OK'},
+                        ],
+                        { cancelable: true }
+                      )}
                     />
                     <Icon
                       reverse
