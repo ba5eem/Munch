@@ -68,10 +68,8 @@ class Home extends React.Component {
         renderCard={(cardData) => <Card {...cardData} />}
         renderNoMoreCards={() => <NoMoreCards />}
         yupText={'Like!'}
-        yupStyle={{borderColor: 'transparent', backgroundColor: 'yellow', borderRadius: 100}}
-        yupTextStyle={{color: 'black', fontSize:30}}
-        nopeStyle={{borderColor: 'transparent', backgroundColor: 'salmon', borderRadius: 100}}
-        nopeTextStyle={{color: 'black', fontSize:30}}
+        yupStyle={{borderColor: 'cornflowerblue'}}
+        yupTextStyle={{color: 'cornflowerblue'}}
         handleYup={this.handleYup}
         handleNope={this.handleNope}
       />

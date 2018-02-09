@@ -29,18 +29,18 @@ class Fav extends Component {
       <View style={{marginTop: 50}}>
         <ScrollView  >
 
-         <Card containerStyle={{padding: 0}} >
+         <Card>
           {
             love.map((u, i) => {
               return (
-                <ListItem
-                  onPress={()=>this.setState({view: true, obj: u})}
-                  key={i}
-                  roundAvatar
-                  title={u.name}
-                  titleStyle={{fontFamily: 'MarkerFelt-Wide'}}
-                  avatar={{uri:u.image_url}}
-                />
+                <View key={i} style={{justifyContent: 'center', alignItems: 'center'}} >
+                  <Image
+                    style={{width: '100%', height: 200}}
+                    resizeMode="cover"
+                    source={{ uri: u.image_url }}
+                  />
+                  <Text style={{fontSize: 30, marginTop:10, marginBottom: 10}} >{u.name}</Text>
+                </View>
               );
             })
           }
