@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { loveFood } from '../Actions/food-actions';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
 import { data } from '../Reducers/data';
@@ -36,35 +38,42 @@ class NoMoreCards extends Component {
   }
 }
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: data
+      cards: data,
+      liked: [],
+
     };
+    this.handleYup=this.handleYup.bind(this);
+    this.handleNope=this.handleNope.bind(this);
   }
 
   handleYup (card) {
-    console.log(`YES for ${card.text}`)
+    const {liked} = this.state;
+    liked.push(card); 
+    this.props.loveFood(liked) 
+    console.log(liked.length);
   }
   handleNope (card) {
-    console.log(`Nope for ${card.text}`)
+    const {liked} = this.state;
+    liked.push(card);  
   }
-  handleMaybe (card) {
-    console.log(`Maybe for ${card.text}`)
-  }
+
   render() {
     return (
       <SwipeCards
         cards={this.state.cards}
         renderCard={(cardData) => <Card {...cardData} />}
         renderNoMoreCards={() => <NoMoreCards />}
-        yupText={'Like'}
-        maybeText={'Lets Begin'}
+        yupText={'Like!'}
+        yupStyle={{borderColor: 'transparent', backgroundColor: 'yellow', borderRadius: 100}}
+        yupTextStyle={{color: 'black', fontSize:30}}
+        nopeStyle={{borderColor: 'transparent', backgroundColor: 'salmon', borderRadius: 100}}
+        nopeTextStyle={{color: 'black', fontSize:30}}
         handleYup={this.handleYup}
         handleNope={this.handleNope}
-        handleMaybe={this.handleMaybe}
-        hasMaybeAction
       />
     )
   }
@@ -81,3 +90,17 @@ const styles = StyleSheet.create({
     fontSize: 22,
   }
 })
+
+const mapStateToProps = (state) => {
+  return {
+    love: state.love
+  };
+}
+
+const ConnectedHome = connect(
+  mapStateToProps,
+  { loveFood }
+)(Home)
+
+
+export default ConnectedHome;

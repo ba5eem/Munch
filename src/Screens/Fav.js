@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView, Image,Button } from 'react-native';
+import { connect } from 'react-redux';
+import { loveFood } from '../Actions/food-actions';
+import { View, Text, Image, StyleSheet,ScrollView, TextInput, Dimensions } from 'react-native';
+import { Ionicons } from 'react-native-vector-icons';
+import { Card, ListItem, Button } from 'react-native-elements';
 
-
+const { height, width } = Dimensions.get('window');
 
 
 class Fav extends Component {
@@ -19,14 +23,45 @@ class Fav extends Component {
 
 
   render() {
+    const {love} = this.props;
     return (
       
-      <View>
-        <Text>Fav</Text>
+      <View style={{marginTop: 50}}>
+        <ScrollView  >
+
+         <Card containerStyle={{padding: 0}} >
+          {
+            love.map((u, i) => {
+              return (
+                <ListItem
+                  onPress={()=>this.setState({view: true, obj: u})}
+                  key={i}
+                  roundAvatar
+                  title={u.name}
+                  titleStyle={{fontFamily: 'MarkerFelt-Wide'}}
+                  avatar={{uri:u.image_url}}
+                />
+              );
+            })
+          }
+        </Card>
+        </ScrollView>
       </View>
     );
   }
 }
 
 
-export default Fav;
+const mapStateToProps = (state) => {
+  return {
+    love: state.love
+  };
+}
+
+const ConnectedFav = connect(
+  mapStateToProps,
+  { loveFood }
+)(Fav)
+
+
+export default ConnectedFav;
