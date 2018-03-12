@@ -35,13 +35,13 @@ class Fav extends Component {
             love.map((u, i) => {
               let status = u.is_closed ? 'Closed Now' : 'Open Now!';
               return (
-                <View key={i} style={{justifyContent: 'center', alignItems: 'center', marginBottom: 20}} >
+                <View key={i} style={styles.wrapper} >
                   <Image
-                    style={{width: '100%', height: 150}}
+                    style={styles.url}
                     resizeMode="cover"
                     source={{ uri: u.image_url }}
                   />
-                  <Text style={{fontSize: 30, marginTop:10, marginBottom: 10}} >{u.name} ({u.price})</Text>
+                  <Text style={styles.price} >{u.name} ({u.price})</Text>
                   <View style={{flex: 1, flexDirection: 'row'}}>
                     <Icon
                       raised
@@ -89,6 +89,26 @@ class Fav extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  price: {
+    fontSize: 30,
+    marginTop:10,
+    marginBottom: 10
+  },
+  url: {
+    width: '100%', 
+    height: 150
+  }
+
+})
+
+
 
 
 const mapStateToProps = (state) => {

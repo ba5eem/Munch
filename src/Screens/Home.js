@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loveFood } from '../Actions/food-actions';
+import { loveFood, loadFood } from '../Actions/food-actions';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
 import { data } from '../Reducers/data';
@@ -12,17 +12,18 @@ class Card extends React.Component {
 
   render() {
     return (
-      <View style={{marginTop: 50, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={cardStyles.wrapper}>
           <Image
-            style={{width: 300, height: 400}}
+            style={cardStyles.imgWrap}
             source={{uri: this.props.image_url}}/>
           <Text
-            style={{fontFamily: 'MarkerFelt-Wide', fontSize: 35}}>
+            style={cardStyles.subHeading}>
             {this.props.name}</Text>
         </View>
     )
   }
 }
+
 
 class NoMoreCards extends Component {
   constructor(props) {
@@ -42,12 +43,15 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: data,
       liked: [],
 
     };
     this.handleYup=this.handleYup.bind(this);
     this.handleNope=this.handleNope.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.loadFood()
   }
 
   handleYup (card) {
@@ -62,9 +66,10 @@ class Home extends React.Component {
   }
 
   render() {
+    const {food} = this.props;
     return (
       <SwipeCards
-        cards={this.state.cards}
+        cards={data}
         renderCard={(cardData) => <Card {...cardData} />}
         renderNoMoreCards={() => <NoMoreCards />}
         yupText={'Like!'}
@@ -89,15 +94,37 @@ const styles = StyleSheet.create({
   }
 })
 
+const cardStyles = StyleSheet.create({
+  wrapper: {
+    marginTop: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imgWrap: {
+    width: 300,
+    height: 400
+  },
+  subHeading: {
+    fontFamily: 'MarkerFelt-Wide',
+    fontSize: 35
+  }
+})
+
+
+
+
+
+
+
 const mapStateToProps = (state) => {
   return {
-    love: state.love
+    food: state.food
   };
 }
 
 const ConnectedHome = connect(
   mapStateToProps,
-  { loveFood }
+  { loadFood, loveFood }
 )(Home)
 
 

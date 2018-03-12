@@ -4,13 +4,16 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import { Ionicons } from 'react-native-vector-icons';
 import Home from './Home';
 import Fav from './Fav';
+import Start from './Start';
 
 
 
 
 const Screens = {
+    Start: { screen: Start },
     Home: { screen: Home },
-    Favs: { screen: Fav }
+    Favs: { screen: Fav },
+
 
   };
 
@@ -31,11 +34,8 @@ const Navigation = TabNavigator(
           else if (routeName === 'Favs') {
           iconName = `ios-basket${focused ? '' : '-outline'}`;
         }
-          else if (routeName === 'Map') {
+          else if (routeName === 'Start') {
           iconName = `ios-compass${focused ? '' : '-outline'}`;
-        }
-          else if (routeName === 'Artists') {
-          iconName = `ios-flower${focused ? '' : '-outline'}`;
         }
 
         return <Ionicons name={iconName} size={25} color={tintColor} />;
